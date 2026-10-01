@@ -1,0 +1,1787 @@
+/* ========================================
+   GLOBAL RESET
+======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #06130d;
+  --bg-soft: #091a12;
+
+  --sidebar: #07170f;
+
+  --panel: #0d2118;
+  --panel-light: #123024;
+  --panel-hover: #173829;
+
+  --text: #f3fff8;
+  --muted: #9eb6aa;
+  --muted-dark: #6f877a;
+
+  --border: #284b39;
+  --border-light: #35644c;
+
+  /* LIME */
+  --lime: #84cc16;
+  --lime-light: #a3e635;
+  --lime-soft: rgba(132, 204, 22, 0.13);
+
+  /* EMERALD */
+  --green: #22c55e;
+  --green-light: #4ade80;
+  --green-soft: rgba(34, 197, 94, 0.14);
+
+  /* TEAL */
+  --teal: #14b8a6;
+  --teal-light: #5eead4;
+  --teal-soft: rgba(20, 184, 166, 0.14);
+
+  --danger: #ff6b6b;
+  --danger-soft: rgba(255, 107, 107, 0.12);
+
+  --shadow:
+    0 18px 45px rgba(0, 0, 0, 0.24);
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+
+  min-width: 320px;
+  min-height: 100vh;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: var(--bg);
+
+  color: var(--text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+button {
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  color-scheme: dark;
+}
+
+
+/* ========================================
+   MAIN APP LAYOUT
+======================================== */
+
+.app {
+  min-height: 100vh;
+
+  display: grid;
+
+  grid-template-columns:
+    255px
+    minmax(0, 1fr);
+
+  background: var(--bg);
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.sidebar {
+  position: sticky;
+
+  top: 0;
+
+  height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  padding: 24px 18px;
+
+  border-right: 1px solid var(--border);
+
+  background: var(--sidebar);
+}
+
+
+/* ========================================
+   BRAND
+======================================== */
+
+.brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 30px;
+}
+
+.brandMark {
+  width: 45px;
+  height: 45px;
+
+  flex-shrink: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 13px;
+
+  background: var(--green);
+
+  color: white;
+
+  font-size: 0.82rem;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 0 24px rgba(34, 197, 94, 0.28);
+}
+
+.brand > div:last-child {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.brand strong {
+  color: var(--text);
+
+  font-size: 0.94rem;
+}
+
+.brand span {
+  color: var(--muted);
+
+  font-size: 0.7rem;
+}
+
+
+/* ========================================
+   SIDEBAR NAVIGATION
+======================================== */
+
+.sidebar nav {
+  display: grid;
+
+  gap: 7px;
+}
+
+.sidebar nav button {
+  min-height: 45px;
+
+  width: 100%;
+
+  border: 1px solid transparent;
+
+  border-radius: 11px;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  padding: 0 14px;
+
+  text-align: left;
+
+  font-weight: 700;
+
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.sidebar nav button:hover {
+  background: var(--panel);
+
+  color: var(--text);
+
+  transform: translateX(2px);
+}
+
+.sidebar nav button.active {
+  border-color: rgba(34, 197, 94, 0.35);
+
+  background: var(--green-soft);
+
+  color: var(--green-light);
+}
+
+.saveNote {
+  margin: 0;
+
+  color: var(--muted-dark);
+
+  font-size: 0.7rem;
+
+  line-height: 1.5;
+}
+
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.app > main {
+  min-width: 0;
+
+  padding: 30px;
+}
+
+
+/* ========================================
+   TOPBAR
+======================================== */
+
+.topbar {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 28px;
+}
+
+.topbar h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: clamp(
+    2rem,
+    4vw,
+    2.8rem
+  );
+
+  letter-spacing: -0.045em;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+
+  color: var(--muted);
+
+  font-size: 0.68rem;
+
+  font-weight: 900;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+}
+
+
+/* ========================================
+   PRIMARY BUTTONS
+======================================== */
+
+.primary {
+  min-height: 44px;
+
+  border: 0;
+
+  border-radius: 11px;
+
+  padding: 0 17px;
+
+  color: white;
+
+  font-weight: 800;
+
+  transition:
+    transform 150ms ease,
+    background 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+}
+
+
+/* JSX CLASS: pink */
+
+.primary.pink {
+  background: var(--lime);
+
+  color: #102000;
+
+  box-shadow:
+    0 8px 24px rgba(132, 204, 22, 0.2);
+}
+
+.primary.pink:hover {
+  background: var(--lime-light);
+
+  box-shadow:
+    0 10px 28px rgba(132, 204, 22, 0.3);
+}
+
+
+/* JSX CLASS: purple */
+
+.primary.purple {
+  background: var(--green);
+
+  box-shadow:
+    0 8px 24px rgba(34, 197, 94, 0.22);
+}
+
+.primary.purple:hover {
+  background: var(--green-light);
+
+  box-shadow:
+    0 10px 28px rgba(34, 197, 94, 0.3);
+}
+
+
+/* JSX CLASS: blue */
+
+.primary.blue {
+  background: var(--teal);
+
+  box-shadow:
+    0 8px 24px rgba(20, 184, 166, 0.22);
+}
+
+.primary.blue:hover {
+  background: var(--teal-light);
+
+  color: #05221e;
+
+  box-shadow:
+    0 10px 28px rgba(20, 184, 166, 0.3);
+}
+
+
+/* ========================================
+   DASHBOARD STATS
+======================================== */
+
+.stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+.stat {
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 125px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-end;
+
+  border: 1px solid var(--border);
+
+  border-radius: 16px;
+
+  background: var(--panel);
+
+  padding: 19px;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.stat > span:first-child {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+}
+
+.stat p {
+  margin: 0 0 8px;
+
+  color: var(--muted);
+
+  font-size: 0.76rem;
+
+  font-weight: 700;
+}
+
+.stat strong {
+  color: var(--text);
+
+  font-size: clamp(
+    1.45rem,
+    2.4vw,
+    2rem
+  );
+
+  letter-spacing: -0.04em;
+}
+
+
+/* lime */
+
+.stat.pink {
+  border-color: rgba(132, 204, 22, 0.25);
+}
+
+.stat.pink > span {
+  background: var(--lime);
+}
+
+
+/* emerald */
+
+.stat.purple {
+  border-color: rgba(34, 197, 94, 0.28);
+}
+
+.stat.purple > span {
+  background: var(--green);
+}
+
+
+/* teal */
+
+.stat.blue {
+  border-color: rgba(20, 184, 166, 0.28);
+}
+
+.stat.blue > span {
+  background: var(--teal);
+}
+
+
+/* ========================================
+   TWO COLUMN SECTIONS
+======================================== */
+
+.twoCol {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(320px, 0.65fr);
+
+  gap: 22px;
+}
+
+
+/* ========================================
+   GENERAL PANEL
+======================================== */
+
+.panel {
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+
+  border-radius: 17px;
+
+  background: var(--panel);
+
+  box-shadow: var(--shadow);
+}
+
+.panelTitle {
+  padding: 18px 20px 14px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.panelTitle .eyebrow {
+  margin: 0;
+}
+
+
+/* ========================================
+   COLOR TEXT HELPERS
+======================================== */
+
+.pinkText {
+  color: var(--lime-light) !important;
+}
+
+.purpleText {
+  color: var(--green-light) !important;
+}
+
+.blueText {
+  color: var(--teal-light) !important;
+}
+
+.mutedText {
+  color: var(--muted) !important;
+}
+
+
+/* ========================================
+   ACTIVE PROJECT ROWS
+======================================== */
+
+.clientRow {
+  width: 100%;
+
+  min-height: 72px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    auto;
+
+  align-items: center;
+
+  gap: 14px;
+
+  border: 0;
+
+  border-bottom: 1px solid var(--border);
+
+  background: transparent;
+
+  padding: 12px 20px;
+
+  text-align: left;
+
+  transition:
+    background 150ms ease;
+}
+
+.clientRow:last-child {
+  border-bottom: 0;
+}
+
+.clientRow:hover {
+  background: var(--panel-light);
+}
+
+.clientRow > div {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.clientRow strong {
+  overflow: hidden;
+
+  color: var(--text);
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.clientRow div span {
+  color: var(--muted);
+
+  font-size: 0.77rem;
+}
+
+.clientRow > b {
+  color: var(--muted);
+
+  font-size: 0.83rem;
+}
+
+
+/* ========================================
+   STATUS PILLS
+======================================== */
+
+.pill {
+  min-height: 27px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: fit-content;
+
+  border-radius: 999px;
+
+  padding: 0 9px;
+
+  white-space: nowrap;
+
+  font-size: 0.66rem;
+
+  font-weight: 800;
+}
+
+.pill.pink {
+  background: var(--lime-soft);
+
+  color: var(--lime-light);
+}
+
+.pill.purple {
+  background: var(--green-soft);
+
+  color: var(--green-light);
+}
+
+.pill.blue {
+  background: var(--teal-soft);
+
+  color: var(--teal-light);
+}
+
+.pill.muted {
+  background: rgba(255, 255, 255, 0.05);
+
+  color: var(--muted);
+}
+
+
+/* ========================================
+   TASKS
+======================================== */
+
+.task {
+  min-height: 64px;
+
+  display: grid;
+
+  grid-template-columns:
+    20px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 11px;
+
+  border-bottom: 1px solid var(--border);
+
+  padding: 12px 18px;
+
+  cursor: pointer;
+}
+
+.task:last-child {
+  border-bottom: 0;
+}
+
+.task:hover {
+  background: var(--panel-light);
+}
+
+.task input {
+  width: 17px;
+  height: 17px;
+
+  accent-color: var(--teal);
+}
+
+.task > span {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.task strong {
+  color: var(--text);
+
+  font-size: 0.83rem;
+}
+
+.task small {
+  color: var(--muted);
+
+  font-size: 0.7rem;
+}
+
+
+/* ========================================
+   CLIENT TOOLBAR
+======================================== */
+
+.toolbar {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    230px;
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+
+/* ========================================
+   SEARCH BAR
+======================================== */
+
+.search {
+  min-height: 50px;
+
+  display: flex;
+
+  align-items: center;
+
+  border: 1px solid var(--green);
+
+  border-radius: 13px;
+
+  background: var(--panel);
+
+  padding: 0 15px;
+
+  box-shadow:
+    0 0 18px rgba(34, 197, 94, 0.08);
+}
+
+.search:focus-within {
+  border-color: var(--green-light);
+
+  box-shadow:
+    0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.search input {
+  width: 100%;
+
+  border: 0;
+
+  outline: none;
+
+  background: transparent;
+
+  color: var(--text);
+}
+
+.search input::placeholder {
+  color: var(--muted-dark);
+}
+
+.toolbar > select {
+  min-height: 50px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 13px;
+
+  outline: none;
+
+  background: var(--panel);
+
+  color: var(--text);
+
+  padding: 0 13px;
+}
+
+.toolbar > select:focus {
+  border-color: var(--teal);
+}
+
+
+/* ========================================
+   CLIENT TABLE
+======================================== */
+
+.tablePanel {
+  overflow: hidden;
+}
+
+.tableHead,
+.tableRow {
+  display: grid;
+
+  grid-template-columns:
+    minmax(210px, 1.5fr)
+    minmax(120px, 0.85fr)
+    minmax(80px, 0.65fr)
+    minmax(80px, 0.65fr)
+    minmax(110px, 0.75fr)
+    auto;
+
+  align-items: center;
+
+  gap: 16px;
+}
+
+.tableHead {
+  min-height: 44px;
+
+  background: var(--panel-light);
+
+  padding: 0 18px;
+
+  color: var(--muted);
+
+  font-size: 0.66rem;
+
+  font-weight: 900;
+
+  letter-spacing: 0.07em;
+
+  text-transform: uppercase;
+}
+
+.tableRow {
+  min-height: 72px;
+
+  border-top: 1px solid var(--border);
+
+  padding: 10px 18px;
+
+  font-size: 0.8rem;
+}
+
+.tableRow:hover {
+  background: var(--panel-light);
+}
+
+.clientName {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  border: 0;
+
+  background: transparent;
+
+  padding: 0;
+
+  text-align: left;
+}
+
+.clientName strong {
+  overflow: hidden;
+
+  color: var(--text);
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.clientName span {
+  color: var(--muted);
+
+  font-size: 0.75rem;
+}
+
+.tableRow > b {
+  color: var(--text);
+}
+
+.tableRow > span:not(.pill) {
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 7px;
+}
+
+.actions button {
+  min-height: 32px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+
+  background: var(--panel-light);
+
+  color: var(--muted);
+
+  padding: 0 10px;
+
+  font-size: 0.73rem;
+
+  font-weight: 700;
+}
+
+.actions button:first-child:hover {
+  border-color: var(--teal);
+
+  color: var(--teal-light);
+}
+
+.actions button:last-child:hover {
+  border-color: var(--danger);
+
+  background: var(--danger-soft);
+
+  color: #ffaaaa;
+}
+
+
+/* ========================================
+   PIPELINE
+======================================== */
+
+.pipeline {
+  display: grid;
+
+  grid-auto-flow: column;
+
+  grid-auto-columns: 270px;
+
+  gap: 14px;
+
+  overflow-x: auto;
+
+  padding-bottom: 14px;
+}
+
+.column {
+  min-height: 570px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+
+  border-radius: 15px;
+
+  background: var(--bg-soft);
+}
+
+.column.pink {
+  border-top: 2px solid var(--lime);
+}
+
+.column.purple {
+  border-top: 2px solid var(--green);
+}
+
+.column.blue {
+  border-top: 2px solid var(--teal);
+}
+
+.column.muted {
+  border-top: 2px solid var(--muted-dark);
+}
+
+.column > header {
+  min-height: 48px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  border-bottom: 1px solid var(--border);
+
+  padding: 0 13px;
+}
+
+.column > header strong {
+  font-size: 0.74rem;
+}
+
+.column > header span {
+  min-width: 23px;
+
+  height: 23px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--panel-light);
+
+  color: var(--muted);
+
+  font-size: 0.67rem;
+
+  font-weight: 800;
+}
+
+.column article {
+  display: grid;
+
+  gap: 6px;
+
+  margin: 10px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: var(--panel);
+
+  padding: 13px;
+
+  cursor: grab;
+
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.column article:hover {
+  transform: translateY(-2px);
+
+  border-color: var(--green);
+
+  background: var(--panel-light);
+}
+
+.column article:active {
+  cursor: grabbing;
+}
+
+.column article strong {
+  font-size: 0.8rem;
+}
+
+.column article span {
+  color: var(--muted);
+
+  font-size: 0.7rem;
+}
+
+.column article b {
+  margin-top: 4px;
+
+  color: var(--green-light);
+
+  font-size: 0.75rem;
+}
+
+
+/* ========================================
+   TASK PAGE
+======================================== */
+
+.taskLine {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.taskLine:last-child {
+  border-bottom: 0;
+}
+
+.taskLine .task {
+  flex: 1;
+
+  border: 0;
+
+  padding-right: 50px;
+}
+
+.taskLine > button {
+  position: absolute;
+
+  right: 12px;
+
+  width: 30px;
+  height: 30px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 1rem;
+}
+
+.taskLine > button:hover {
+  background: var(--danger-soft);
+
+  color: var(--danger);
+}
+
+.taskLine.done {
+  opacity: 0.5;
+}
+
+.taskLine.done strong {
+  text-decoration: line-through;
+}
+
+
+/* ========================================
+   GENERAL FORMS
+======================================== */
+
+.form {
+  display: grid;
+
+  gap: 14px;
+
+  padding: 20px;
+}
+
+.form label,
+.clientForm label {
+  display: grid;
+
+  gap: 7px;
+
+  color: var(--muted);
+
+  font-size: 0.72rem;
+
+  font-weight: 800;
+}
+
+.form input,
+.form select,
+.clientForm input,
+.clientForm select,
+.clientForm textarea {
+  width: 100%;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background: var(--panel-light);
+
+  color: var(--text);
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.form input,
+.form select,
+.clientForm input,
+.clientForm select {
+  min-height: 43px;
+
+  padding: 0 12px;
+}
+
+.clientForm textarea {
+  resize: vertical;
+
+  padding: 12px;
+}
+
+.form input:focus,
+.form select:focus,
+.clientForm input:focus,
+.clientForm select:focus,
+.clientForm textarea:focus {
+  border-color: var(--green);
+
+  box-shadow:
+    0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+
+/* ========================================
+   MODAL OVERLAY
+======================================== */
+
+.overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 22px;
+
+  background: rgba(2, 9, 5, 0.82);
+
+  backdrop-filter: blur(7px);
+}
+
+
+/* ========================================
+   CLIENT MODAL
+======================================== */
+
+.modal {
+  width: min(
+    820px,
+    100%
+  );
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  border: 1px solid var(--border-light);
+
+  border-radius: 19px;
+
+  background: var(--panel);
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.modal > header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 18px;
+
+  border-bottom: 1px solid var(--border);
+
+  padding: 20px;
+}
+
+.modal h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 1.35rem;
+}
+
+.modal > header > button {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  background: var(--panel-light);
+
+  color: var(--text);
+
+  font-size: 1.2rem;
+}
+
+.modal > header > button:hover {
+  border-color: var(--danger);
+
+  color: var(--danger);
+}
+
+
+/* ========================================
+   CLIENT FORM
+======================================== */
+
+.clientForm {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 15px;
+
+  padding: 20px;
+}
+
+.clientForm .wide {
+  grid-column: 1 / -1;
+}
+
+.formActions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding-top: 5px;
+}
+
+.formActions > button:not(.primary) {
+  min-height: 42px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  background: var(--panel-light);
+
+  color: var(--muted);
+
+  padding: 0 15px;
+
+  font-weight: 700;
+}
+
+.formActions > button:not(.primary):hover {
+  border-color: var(--border-light);
+
+  color: var(--text);
+}
+
+
+/* ========================================
+   DRAWER OVERLAY
+======================================== */
+
+.drawerOverlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 110;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  background: rgba(2, 9, 5, 0.78);
+
+  backdrop-filter: blur(6px);
+}
+
+
+/* ========================================
+   CLIENT DRAWER
+======================================== */
+
+.drawer {
+  width: min(
+    510px,
+    100%
+  );
+
+  height: 100%;
+
+  overflow-y: auto;
+
+  border-left: 1px solid var(--border-light);
+
+  background: var(--panel);
+
+  box-shadow:
+    -25px 0 70px rgba(0, 0, 0, 0.45);
+}
+
+.drawer > header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 18px;
+
+  border-bottom: 1px solid var(--border);
+
+  padding: 22px;
+}
+
+.drawer h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 1.45rem;
+}
+
+.drawer header div > span {
+  display: inline-block;
+
+  margin-top: 6px;
+
+  color: var(--muted);
+
+  font-size: 0.8rem;
+}
+
+.drawer > header > button {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  background: var(--panel-light);
+
+  color: var(--text);
+
+  font-size: 1.2rem;
+}
+
+.drawer > header > button:hover {
+  border-color: var(--danger);
+
+  color: var(--danger);
+}
+
+
+/* ========================================
+   DRAWER SECTIONS
+======================================== */
+
+.drawerSection {
+  padding: 20px 22px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.drawerSection h3 {
+  margin: 0 0 15px;
+
+  color: var(--green-light);
+
+  font-size: 0.92rem;
+}
+
+
+/* ========================================
+   MINI CLIENT INFO GRID
+======================================== */
+
+.miniGrid {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 10px;
+}
+
+.mini {
+  display: grid;
+
+  gap: 5px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: var(--panel-light);
+
+  padding: 12px;
+}
+
+.mini span {
+  color: var(--muted);
+
+  font-size: 0.66rem;
+}
+
+.mini strong {
+  overflow: hidden;
+
+  color: var(--text);
+
+  font-size: 0.8rem;
+
+  text-overflow: ellipsis;
+}
+
+
+/* ========================================
+   LAUNCH CHECKLIST
+======================================== */
+
+.check {
+  min-height: 35px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  color: var(--muted);
+
+  font-size: 0.78rem;
+
+  cursor: pointer;
+}
+
+.check input {
+  width: 17px;
+  height: 17px;
+
+  accent-color: var(--green);
+}
+
+.check:hover {
+  color: var(--text);
+}
+
+
+/* ========================================
+   NOTES
+======================================== */
+
+.notes {
+  margin: 0;
+
+  border-left: 3px solid var(--lime);
+
+  border-radius:
+    0
+    10px
+    10px
+    0;
+
+  background: var(--lime-soft);
+
+  color: var(--muted);
+
+  padding: 13px 14px;
+
+  font-size: 0.8rem;
+
+  line-height: 1.65;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1150px) {
+
+  .stats {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .twoCol {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHead {
+    display: none;
+  }
+
+  .tableRow {
+    grid-template-columns:
+      minmax(220px, 1fr)
+      auto
+      auto;
+  }
+
+  .tableRow > :nth-child(4),
+  .tableRow > :nth-child(5) {
+    display: none;
+  }
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 820px) {
+
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+
+    height: auto;
+
+    padding: 15px;
+
+    border-right: 0;
+
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    margin-bottom: 14px;
+  }
+
+  .sidebar nav {
+    grid-template-columns:
+      repeat(4, 1fr);
+  }
+
+  .sidebar nav button {
+    text-align: center;
+  }
+
+  .saveNote {
+    display: none;
+  }
+
+  .app > main {
+    padding:
+      22px
+      16px
+      40px;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .tableRow {
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto;
+  }
+
+  .tableRow > :nth-child(3),
+  .tableRow > :nth-child(4),
+  .tableRow > :nth-child(5) {
+    display: none;
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+
+    justify-content: flex-start;
+  }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 560px) {
+
+  .topbar {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .topbar .primary {
+    width: 100%;
+  }
+
+  .sidebar nav button {
+    min-height: 38px;
+
+    padding: 0 7px;
+
+    font-size: 0.68rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .clientRow {
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto;
+  }
+
+  .clientRow > b {
+    display: none;
+  }
+
+  .clientForm {
+    grid-template-columns: 1fr;
+  }
+
+  .clientForm .wide {
+    grid-column: auto;
+  }
+
+  .formActions {
+    flex-direction: column-reverse;
+  }
+
+  .formActions button {
+    width: 100%;
+  }
+
+  .miniGrid {
+    grid-template-columns: 1fr;
+  }
+}
